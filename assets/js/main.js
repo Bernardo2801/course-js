@@ -1,9 +1,23 @@
+function convertPokemonToLi(pokemon) {
+    return `
+        <li class="pokemon">
+                <span class="number">#001</span>
+                <span class="name">${pokemon.name}</span>
+                <div class="detail">
+                    <ol class="types">
+                        <li class="type">grass</li>
+                        <li class="type">poison</li>
+                    </ol>
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+                    alt="${pokemon.name}">
+                </div>
+        </li>
+    `
+}
 
-const offset = 0;   // criação de variável para definir paginação
-const limit = 10;   // criação de variável para definir limite de item por página
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;     // criação de variável para definir a url da API
+const pokemonList = document.getElementById('pokemonList')
 
-fetch(url)                                           // processo de manipulação da resposta
-    .then((response) => response.json())            // 1° then recebe url e trata em formato de json
-    .then((jsonBody) => response.json (jsonBody))   // recebe o json convertido e try
-    .catch((error) => response.json (error))        // em caso de erro, return error
+pokeApi.getPokemons().then((pokemons = []) => {                         // Fizemos a requisição HTTP - Transformamos a lista de objetos em uma string (basicamente viru um novo html)
+    const newHtml = pokemons.map(convertPokemonToLi).join('')
+    pokemonList.innerHTML = newHtml
+})
